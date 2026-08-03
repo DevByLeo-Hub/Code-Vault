@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bolo Animado Perfeito</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+    <canvas id="bgCanvas"></canvas>
+
+    <div class="container">
+        <div class="cake-wrapper">
+            
+            <div class="balloon-bunch left-bunch">
+                <div class="b-balloon b1"></div>
+                <div class="b-balloon b2"></div>
+                <div class="b-balloon b3"></div>
+            </div>
+
+            <div class="balloon-bunch right-bunch">
+                <div class="b-balloon b1"></div>
+                <div class="b-balloon b2"></div>
+                <div class="b-balloon b3"></div>
+            </div>
+
+            <div class="layer plate"></div>
+            
+            <div class="layer sponge sponge1"></div>
+            <div class="layer filling filling1"></div>
+            
+            <div class="layer sponge sponge2"></div>
+            <div class="layer filling filling2"></div>
+            
+            <div class="layer sponge sponge3"></div>
+            
+            <div class="layer icing">
+                <div class="drip drip1"></div>
+                <div class="drip drip2"></div>
+                <div class="drip drip3"></div>
+                <div class="drip drip4"></div>
+            </div>
+            
+            <div class="layer candle"></div>
+            <div class="layer flame"></div>
+        </div>
+
+        <div class="text-container">
+            <h1><span id="typed-text"></span><span class="cursor" id="cursor"></span></h1>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
