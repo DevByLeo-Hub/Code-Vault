@@ -3,7 +3,7 @@
 Bem-vindo ao código do meu projeto de Aniversário Neon! 🎉
 Este é um projeto de **Creative Coding** focado em criar uma experiência visual imersiva e romântica para desejar um feliz aniversário.
 
-![Demonstração do Projeto](image_739d1e.jpg)
+![Demonstração do Projeto](Bolo.jpg)
 
 ## 🚀 Sobre o Projeto
 Uma animação interativa construída do zero, combinando manipulação de elementos HTML com animações em Canvas para o fundo estelar. O destaque fica para a sincronia perfeita da montagem do bolo e a digitação do texto final.
