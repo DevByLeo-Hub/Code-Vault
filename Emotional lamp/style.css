@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+[data-emotion="off"] {
+    --bg-room: #0c0c11; --shade-body: #2a2a32; --shade-top: #3a3a42; --shade-bottom: #1a1a20;
+    --light-opacity: 0; --light-color: transparent;
+    --face: #111115; --stem: #1a1a20; --base: #2a2a32; --base-shadow: #111115;
+}
+[data-emotion="joy"] {
+    --bg-room: #1a1a00; --shade-body: #fce181; --shade-top: #e6c55c; --shade-bottom: #fff5c2;
+    --light-opacity: 1; --light-color: rgba(255, 225, 129, 0.45);
+    --face: #111115; --stem: #2d2d1a; --base: #3b3b2a; --base-shadow: #111115;
+}
+[data-emotion="anger"] {
+    --bg-room: #2a0505; --shade-body: #ff4d4d; --shade-top: #cc0000; --shade-bottom: #ffb3b3;
+    --light-opacity: 1; --light-color: rgba(255, 77, 77, 0.45);
+    --face: #330000; --stem: #2d1a1a; --base: #3b2a2a; --base-shadow: #110505;
+}
+[data-emotion="disgust"] {
+    --bg-room: #052005; --shade-body: #70db70; --shade-top: #33cc33; --shade-bottom: #b3ffb3;
+    --light-opacity: 1; --light-color: rgba(112, 219, 112, 0.45);
+    --face: #003300; --stem: #1a2d1a; --base: #2a3b2a; --base-shadow: #051105;
+}
+[data-emotion="sadness"] {
+    --bg-room: #05102a; --shade-body: #66b3ff; --shade-top: #0073e6; --shade-bottom: #cce6ff;
+    --light-opacity: 1; --light-color: rgba(102, 179, 255, 0.45);
+    --face: #001133; --stem: #1a202d; --base: #2a303b; --base-shadow: #050a11;
+}
+[data-emotion="anxiety"] {
+    --bg-room: #1a052a; --shade-body: #b366ff; --shade-top: #7300e6; --shade-bottom: #e6ccff;
+    --light-opacity: 1; --light-color: rgba(179, 102, 255, 0.45);
+    --face: #220033; --stem: #201a2d; --base: #302a3b; --base-shadow: #110511;
+}
+[data-emotion="inlove"] {
+    --bg-room: #2a0011; --shade-body: #ff4d94; --shade-top: #cc0052; --shade-bottom: #ffb3d1;
+    --light-opacity: 1; --light-color: rgba(255, 77, 148, 0.45);
+    --face: #660022; --stem: #2d1a24; --base: #3b2a32; --base-shadow: #11050a;
+}
+[data-emotion="crying"] {
+    --bg-room: #020a15; --shade-body: #3377ff; --shade-top: #0044cc; --shade-bottom: #b3d1ff;
+    --light-opacity: 1; --light-color: rgba(51, 119, 255, 0.45);
+    --face: #001133; --stem: #1a222d; --base: #2a333b; --base-shadow: #050a11;
+}
+[data-emotion="naughty"] {
+    --bg-room: #17002e; --shade-body: #9933ff; --shade-top: #6600cc; --shade-bottom: #d9b3ff;
+    --light-opacity: 1; --light-color: rgba(153, 51, 255, 0.45);
+    --face: #26004d; --stem: #221a2d; --base: #322a3b; --base-shadow: #0e0511;
+}
+[data-emotion="clown"] {
+    --bg-room: #051a24; --shade-body: #ffcc00; --shade-top: #ff3300; --shade-bottom: #33ccff;
+    --light-opacity: 1; --light-color: rgba(255, 204, 0, 0.45);
+    --face: #111115; --stem: #2d2a1a; --base: #3b352a; --base-shadow: #111115;
+}
+
+body { background-color: #0c0c11; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+.room { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background: var(--bg-room); transition: background 0.5s ease; }
+.lamp { position: relative; display: flex; flex-direction: column; align-items: center; width: 300px; height: 400px; padding-top: 50px; }
+
+.light { position: absolute; top: 130px; width: 260px; height: 220px; background: linear-gradient(to bottom, var(--light-color), transparent); clip-path: polygon(60px 0, 200px 0, 260px 100%, 0 100%); opacity: var(--light-opacity); transition: opacity 0.5s ease, background 0.5s ease; pointer-events: none; z-index: 3; }
+.shade-container { position: relative; width: 140px; height: 90px; z-index: 5; }
+.shade-top { position: absolute; top: -10px; left: 20px; width: 100px; height: 20px; background: var(--shade-top); border-radius: 50%; z-index: 3; transition: background 0.5s ease; }
+.shade-body { position: absolute; top: 0; left: 0; width: 140px; height: 90px; background: var(--shade-body); clip-path: polygon(20px 0, 120px 0, 140px 100%, 0 100%); z-index: 2; transition: background 0.5s ease; }
+.shade-bottom { position: absolute; bottom: -10px; left: 0; width: 140px; height: 20px; background: var(--shade-bottom); border-radius: 50%; z-index: 1; transition: background 0.5s ease; }
+.cord { position: absolute; top: 130px; left: 60%; width: 3px; height: 70px; background: #444; cursor: pointer; z-index: 2; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1); }
+.cord::after { content: ''; position: absolute; bottom: -6px; left: -3.5px; width: 10px; height: 10px; background: #555; border-radius: 50%; }
+.cord:active { transform: translateY(15px); }
+.stem { width: 8px; height: 150px; background: var(--stem); z-index: 1; margin-top: -5px; transition: background 0.5s ease; }
+.base { width: 90px; height: 25px; background: var(--base); border-radius: 50%; box-shadow: 0 6px 0 var(--base-shadow); z-index: 2; margin-top: -10px; transition: background 0.5s ease, box-shadow 0.5s ease; }
+
+.face { position: absolute; top: 40px; left: 50%; transform: translateX(-50%); width: 48px; height: 30px; z-index: 4; }
+.eye, .mouth, .blush, .tear, .eye::before, .eye::after, .mouth::before, .mouth::after { position: absolute; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.eye::before, .eye::after, .mouth::before, .mouth::after { content: ''; }
+.blush { width: 12px; height: 6px; background: #ff4d6d; border-radius: 50%; top: 18px; opacity: 0; filter: blur(2px); }
+.blush.left { left: -4px; }
+.blush.right { right: -4px; }
+.tear { width: 6px; height: 8px; background: #3399ff; border-radius: 0 50% 50% 50%; transform: rotate(45deg); top: 15px; left: 4px; opacity: 0; z-index: 5; }
+
+@keyframes cry {
+    0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+    80% { transform: translateY(12px) rotate(45deg); opacity: 0; }
+    100% { opacity: 0; }
+}
+@keyframes zzz-anim {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    30% { opacity: 0.8; }
+    100% { transform: translate(15px, -25px) scale(1.5); opacity: 0; }
+}
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+}
+@keyframes stream-cry {
+    0% { transform: translateY(0) scaleY(1); opacity: 1; }
+    100% { transform: translateY(15px) scaleY(1.5); opacity: 0; }
+}
+
+[data-emotion="off"] .eye { top: 10px; width: 14px; height: 8px; border-bottom: 3px solid var(--face); border-radius: 50%; background: transparent; }
+[data-emotion="off"] .eye.left { left: 2px; }
+[data-emotion="off"] .eye.right { right: 2px; }
+[data-emotion="off"] .mouth { width: 6px; height: 6px; background: var(--face); border-radius: 50%; bottom: 2px; left: 50%; transform: translateX(-50%); opacity: 0.5; }
+[data-emotion="off"] .face::before { content: 'Zzz'; position: absolute; color: #888; font-family: sans-serif; font-weight: bold; font-size: 14px; top: -15px; right: -15px; animation: zzz-anim 2.5s infinite; }
+
+[data-emotion="joy"] .blush { opacity: 0.6; }
+[data-emotion="joy"] .eye { top: 5px; width: 14px; height: 14px; border-top: 4px solid var(--face); border-radius: 50%; background: transparent; }
+[data-emotion="joy"] .eye.left { left: 4px; }
+[data-emotion="joy"] .eye.right { right: 4px; }
+[data-emotion="joy"] .mouth { width: 20px; height: 14px; background: #61001d; border-radius: 0 0 14px 14px; bottom: 0px; left: 50%; transform: translateX(-50%); overflow: hidden; opacity: 1; }
+[data-emotion="joy"] .mouth::after { width: 14px; height: 10px; background: #ff4d6d; border-radius: 50%; bottom: -2px; left: 3px; }
+
+[data-emotion="anger"] .eye { top: 8px; width: 14px; height: 8px; background: var(--face); border-radius: 14px 14px 0 0; }
+[data-emotion="anger"] .eye.left { left: 2px; }
+[data-emotion="anger"] .eye.right { right: 2px; }
+[data-emotion="anger"] .eye.left::before { width: 18px; height: 4px; background: var(--face); top: -4px; left: -2px; transform: rotate(25deg); border-radius: 2px; }
+[data-emotion="anger"] .eye.right::before { width: 18px; height: 4px; background: var(--face); top: -4px; right: -2px; transform: rotate(-25deg); border-radius: 2px; }
+[data-emotion="anger"] .mouth { width: 16px; height: 8px; background: var(--face); border-radius: 4px; bottom: 2px; left: 50%; transform: translateX(-50%); opacity: 1; overflow: hidden; }
+[data-emotion="anger"] .mouth::after { width: 16px; height: 3px; background: white; top: 0; left: 0; }
+
+[data-emotion="disgust"] .eye { top: 6px; width: 14px; height: 14px; background: white; border: 3px solid var(--face); border-radius: 50%; overflow: hidden; }
+[data-emotion="disgust"] .eye.left { left: 2px; }
+[data-emotion="disgust"] .eye.right { right: 2px; }
+[data-emotion="disgust"] .eye::before { width: 6px; height: 6px; background: var(--face); border-radius: 50%; top: 2px; left: 0px; }
+[data-emotion="disgust"] .eye::after { width: 20px; height: 7px; background: #2b7a2b; border-bottom: 2px solid var(--face); top: -1px; left: -2px; }
+[data-emotion="disgust"] .mouth { width: 12px; height: 4px; border-top: 3px solid var(--face); border-radius: 50%; bottom: 5px; left: 35%; transform: translateX(-50%) rotate(-25deg); opacity: 1; }
+
+[data-emotion="sadness"] .eye { top: 10px; width: 10px; height: 10px; background: var(--face); border-radius: 50%; }
+[data-emotion="sadness"] .eye.left { left: 6px; }
+[data-emotion="sadness"] .eye.right { right: 6px; }
+[data-emotion="sadness"] .eye.left::before { width: 12px; height: 3px; background: var(--face); top: -6px; left: -2px; transform: rotate(-25deg); border-radius: 2px; }
+[data-emotion="sadness"] .eye.right::before { width: 12px; height: 3px; background: var(--face); top: -6px; right: -2px; transform: rotate(25deg); border-radius: 2px; }
+[data-emotion="sadness"] .tear { animation: cry 1.5s infinite; }
+[data-emotion="sadness"] .mouth { width: 12px; height: 8px; border-top: 3px solid var(--face); border-radius: 50%; bottom: 0px; left: 50%; transform: translateX(-50%); opacity: 1; }
+
+[data-emotion="anxiety"] .eye { top: 4px; width: 18px; height: 18px; background: white; border: 2px solid var(--face); border-radius: 50%; }
+[data-emotion="anxiety"] .eye.left { left: 2px; }
+[data-emotion="anxiety"] .eye.right { right: 2px; }
+[data-emotion="anxiety"] .eye::before { width: 4px; height: 4px; background: var(--face); border-radius: 50%; top: 5px; left: 5px; }
+[data-emotion="anxiety"] .mouth { width: 14px; height: 4px; border: 2px solid var(--face); border-radius: 2px; background: white; bottom: 2px; left: 50%; transform: translateX(-50%); opacity: 1; }
+
+[data-emotion="inlove"] .blush { opacity: 0.9; background: #ff1a66; filter: blur(3px); width: 16px; height: 8px; }
+[data-emotion="inlove"] .eye { top: 4px; width: 14px; height: 14px; background: transparent; }
+[data-emotion="inlove"] .eye.left { left: 4px; }
+[data-emotion="inlove"] .eye.right { right: 4px; }
+[data-emotion="inlove"] .eye::before { content: '♥'; font-size: 38px; color: #ff0055; text-shadow: 0 0 10px rgba(255, 0, 85, 0.8); position: absolute; top: -20px; left: -10px; animation: heartbeat 0.7s infinite; }
+[data-emotion="inlove"] .mouth { width: 14px; height: 12px; border-bottom: 4px solid var(--face); border-radius: 50%; bottom: 0px; left: 50%; transform: translateX(-50%); opacity: 1; }
+
+[data-emotion="crying"] .eye { top: 10px; width: 14px; height: 4px; background: transparent; border-top: 4px solid var(--face); border-radius: 50%; transform: rotate(-20deg); }
+[data-emotion="crying"] .eye.right { transform: rotate(20deg); }
+[data-emotion="crying"] .eye.left { left: 2px; }
+[data-emotion="crying"] .eye.right { right: 2px; }
+[data-emotion="crying"] .tear { width: 6px; height: 18px; background: #4da6ff; box-shadow: 0 0 6px #0066cc; border-radius: 10px; top: 8px; left: 2px; animation: stream-cry 0.25s linear infinite; }
+[data-emotion="crying"] .eye.left::after { content: ''; position: absolute; width: 6px; height: 18px; background: #4da6ff; box-shadow: 0 0 6px #0066cc; border-radius: 10px; top: 8px; left: 2px; animation: stream-cry 0.25s linear infinite 0.12s; }
+[data-emotion="crying"] .mouth { width: 18px; height: 24px; background: var(--face); border-radius: 50%; bottom: -4px; left: 50%; transform: translateX(-50%); opacity: 1; }
+
+[data-emotion="naughty"] .eye { top: 8px; width: 14px; height: 8px; background: var(--face); border-radius: 14px 14px 0 0; }
+[data-emotion="naughty"] .eye.left { left: 2px; }
+[data-emotion="naughty"] .eye.right { right: 2px; }
+[data-emotion="naughty"] .eye.left::before { width: 16px; height: 3px; background: var(--face); top: -4px; left: 0px; transform: rotate(15deg); border-radius: 2px; }
+[data-emotion="naughty"] .eye.right::before { width: 16px; height: 3px; background: var(--face); top: -2px; right: 0px; transform: rotate(-20deg); border-radius: 2px; }
+[data-emotion="naughty"] .mouth { width: 16px; height: 8px; border-bottom: 3px solid var(--face); border-left: 3px solid var(--face); border-radius: 0 0 0 10px; bottom: 4px; left: 60%; transform: translateX(-50%) rotate(-15deg); opacity: 1; }
+[data-emotion="naughty"] .face::before, [data-emotion="naughty"] .face::after { content: ''; position: absolute; top: -12px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 12px solid #ff3333; border-radius: 50%; }
+[data-emotion="naughty"] .face::before { left: 4px; transform: rotate(-25deg); }
+[data-emotion="naughty"] .face::after { right: 4px; transform: rotate(25deg); }
+
+[data-emotion="clown"] .blush { opacity: 1; background: #0088ff; width: 14px; height: 20px; top: 12px; filter: blur(1px); border-radius: 50% 50% 0 0; }
+[data-emotion="clown"] .eye { top: 2px; width: 16px; height: 14px; background: white; border: 2px solid var(--face); border-radius: 50% 30% 50% 30%; }
+[data-emotion="clown"] .eye.left { left: 0px; }
+[data-emotion="clown"] .eye.right { right: 0px; }
+[data-emotion="clown"] .eye.left::before { width: 4px; height: 4px; background: var(--face); border-radius: 50%; top: 4px; left: 2px; }
+[data-emotion="clown"] .eye.right::before { width: 5px; height: 5px; background: var(--face); border-radius: 50%; top: 6px; left: 6px; }
+[data-emotion="clown"] .mouth { width: 28px; height: 16px; background: black; border-radius: 10px 10px 20px 20px; bottom: -4px; left: 50%; transform: translateX(-50%); opacity: 1; border: 3px solid #ff0000; overflow: hidden; }
+[data-emotion="clown"] .mouth::after { content: ''; position: absolute; top: 0; left: 2px; width: 24px; height: 6px; background: repeating-linear-gradient(90deg, white, white 4px, black 4px, black 6px); }
+[data-emotion="clown"] .mouth::before { content: ''; position: absolute; width: 14px; height: 14px; background: #ff0000; border-radius: 50%; top: -14px; left: 50%; transform: translateX(-50%); border: 2px solid var(--face); z-index: 6; }
