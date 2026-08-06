@@ -29,7 +29,7 @@ Um projeto interativo construído do zero, combinando manipulação de elementos
 * `style.css` - Contém todas as regras de estilo e animações dos balões e textos.
 * `script.js` - O motor por trás do céu estrelado e dos fogos de artifício.
 * `GIRASSOL.png` - A imagem do buquê utilizada no projeto.
-* `a9115276-49dc-4a15-904b-5b73caa663ec.png` - Imagem de demonstração do README.
+* `Girassol.png` - Imagem de demonstração do README.
 
 ## 🚀 Como Executar
 
