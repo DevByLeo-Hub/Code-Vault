@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: white;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px;'><text y='22'>🌻</text></svg>") 16 16, auto;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none; 
+}
+
+.balloons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.balloon {
+    width: 45px;
+    height: 55px;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+    animation: float 3s ease-in-out infinite alternate;
+}
+
+.balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 15px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.balloon:nth-child(odd) {
+    background: radial-gradient(circle at 15px 15px, #ffffff, #b3b3b3);
+    color: #333;
+}
+
+.balloon:nth-child(even) {
+    background: radial-gradient(circle at 15px 15px, #ffeeaa, #ffb300);
+    color: #553300; 
+}
+
+.balloon:nth-child(1) { animation-delay: 0s; }
+.balloon:nth-child(2) { animation-delay: 0.5s; font-size: 18px; }
+.balloon:nth-child(3) { animation-delay: 1s; }
+.balloon:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-15px); }
+}
+h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    margin-bottom: 5px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    color: #FFD700;
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+}
+
+.bouquet {
+    margin-top: 10px;
+}
+
+.bouquet img {
+    width: 200px;
+    max-height: 40vh;
+    object-fit: contain;
+    filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.15));
+    animation: pulse 3s infinite ease-in-out alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.03); }
+}
