@@ -2,7 +2,7 @@
 
 Bem-vindo ao código do projeto da Lâmpada das Emoções! 💡 Este é um projeto de Codificação Criativa focado em criar uma luminária interativa e divertida que muda de humor, cor e expressão a cada puxão de cordinha.
 
-![Preview do Projeto](Captura de tela lamp.png)
+![Preview do Projeto](lamp.png)
 
 ## 🚀 Sobre o Projeto
 
