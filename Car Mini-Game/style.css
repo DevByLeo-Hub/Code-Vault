@@ -1,0 +1,74 @@
+body { 
+    margin: 0; 
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+canvas { 
+    display: block; 
+    touch-action: none; 
+    cursor: grab; 
+}
+
+canvas:active {
+    cursor: grabbing;
+}
+
+#time-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 100;
+    transition: background-color 0.2s;
+}
+
+#time-toggle:hover {
+    background-color: rgba(40, 40, 40, 0.8);
+}
+
+#dashboard {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(20, 20, 20, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+#speedometer {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+
+#speed-bar {
+    height: 6px;
+    width: 100px;
+    background-color: #333;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+#speed-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4CAF50, #FFEB3B, #FF5722);
+    transition: width 0.2s;
+}
