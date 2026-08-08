@@ -1,6 +1,6 @@
-# 🏎️ Jogo de Corrida Oval 3D
+# 🏎️ Jogo de Corrida 3D
 
-Bem-vindo ao código do jogo de Corrida Oval 3D! 🏎️ Este é um projeto de simulação gráfica construído inteiramente no navegador para criar uma experiência de corrida vibrante com iluminação dinâmica, inteligência artificial básica de corredores e controles de física customizados[cite: 21, 22].
+Bem-vindo ao código do jogo de Corrida 3D! 🏎️ Este é um projeto de simulação gráfica construído inteiramente no navegador para criar uma experiência de corrida vibrante com iluminação dinâmica, inteligência artificial básica de corredores e controles de física customizados[cite: 21, 22].
 
 ![Preview do Projeto](Car.png)
 
