@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floco de Neve Fractal e Animado</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #01050a;
+            font-family: monospace;
+        }
+        canvas {
+            display: block;
+        }
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #aaffff;
+            font-size: 18px;
+            text-shadow: 0 0 10px rgba(170, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="ui">
+        Nível de Iteração: <span id="depthViewer">0</span><br>
+        <span style="font-size: 12px; color: #88bbbb;">Magia Fractal com energia a fluir e neve a cair...</span>
+    </div>
+    <canvas id="fractalCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('fractalCanvas');
+        const ctx = canvas.getContext('2d');
+        const depthViewer = document.getElementById('depthViewer');
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            initSnow();
+        });
+
+        let snowflakes = [];
+        const numFlakes = 150; 
+
+        function initSnow() {
+            snowflakes = [];
+            for (let i = 0; i < numFlakes; i++) {
+                snowflakes.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    r: Math.random() * 2 + 0.5, 
+                    vx: (Math.random() - 0.5) * 1, 
+                    vy: Math.random() * 1.5 + 0.5 
+                });
+            }
+        }
+        initSnow();
+
+        function drawSnow() {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.shadowBlur = 5;
+            ctx.shadowColor = '#ffffff';
+            
+            snowflakes.forEach(f => {
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+                ctx.fill();
+
+                f.x += f.vx;
+                f.y += f.vy;
+
+                if (f.y > h) f.y = -5;
+                if (f.x > w) f.x = -5;
+                else if (f.x < 0) f.x = w + 5;
+            });
+            ctx.shadowBlur = 0; 
+        }
+
+        function drawGrowingKoch(p0, p1, depthRemaining, fraction) {
+            if (depthRemaining === 0) {
+                const dx = p1.x - p0.x;
+                const dy = p1.y - p0.y;
+
+                const pA = { x: p0.x + dx / 3, y: p0.y + dy / 3 };
+                const pC = { x: p0.x + dx * 2 / 3, y: p0.y + dy * 2 / 3 };
+
+                const pMid = { x: (pA.x + pC.x) / 2, y: (pA.y + pC.y) / 2 };
+
+                const angle = Math.atan2(dy, dx) - Math.PI / 3;
+                const length = Math.sqrt(dx * dx + dy * dy) / 3;
+                const pB_full = {
+                    x: pA.x + Math.cos(angle) * length,
+                    y: pA.y + Math.sin(angle) * length
+                };
+
+                const pB_anim = {
+                    x: pMid.x + (pB_full.x - pMid.x) * fraction,
+                    y: pMid.y + (pB_full.y - pMid.y) * fraction
+                };
+
+                ctx.lineTo(pA.x, pA.y);
+                ctx.lineTo(pB_anim.x, pB_anim.y);
+                ctx.lineTo(pC.x, pC.y);
+                ctx.lineTo(p1.x, p1.y);
+            } 
+            else {
+                const dx = p1.x - p0.x;
+                const dy = p1.y - p0.y;
+
+                const pA = { x: p0.x + dx / 3, y: p0.y + dy / 3 };
+                const pC = { x: p0.x + dx * 2 / 3, y: p0.y + dy * 2 / 3 };
+
+                const angle = Math.atan2(dy, dx) - Math.PI / 3;
+                const length = Math.sqrt(dx * dx + dy * dy) / 3;
+                const pB = {
+                    x: pA.x + Math.cos(angle) * length,
+                    y: pA.y + Math.sin(angle) * length
+                };
+
+                drawGrowingKoch(p0, pA, depthRemaining - 1, fraction);
+                drawGrowingKoch(pA, pB, depthRemaining - 1, fraction);
+                drawGrowingKoch(pB, pC, depthRemaining - 1, fraction);
+                drawGrowingKoch(pC, p1, depthRemaining - 1, fraction);
+            }
+        }
+
+        let time = 0;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.025; 
+
+            ctx.fillStyle = '#01050a';
+            ctx.fillRect(0, 0, w, h);
+
+            drawSnow();
+
+            const cx = w / 2;
+            const cy = h / 2 + (h * 0.1); 
+            const radius = Math.min(w, h) * 0.35; 
+
+            const smoothGrowth = (Math.sin(time * 0.8) + 1) / 2 * 4.99; 
+            const currentLevel = Math.floor(smoothGrowth); 
+            const fraction = smoothGrowth % 1;            
+            
+            depthViewer.innerText = currentLevel;
+
+            ctx.save();
+            ctx.translate(cx, cy);
+            
+            ctx.rotate(time * 0.15); 
+
+            const numLayers = 6; 
+            
+            for (let i = 0; i < numLayers; i++) {
+                ctx.save(); 
+                
+                const scale = Math.pow(0.75, i); 
+                ctx.scale(scale, scale);
+                
+                ctx.lineWidth = 2.5 / scale; 
+                ctx.shadowBlur = 15 / scale;
+                
+                const alpha = 1 - (i * 0.12);
+                if (i === 0) {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                    ctx.shadowColor = `rgba(200, 255, 255, ${alpha})`;
+                } else {
+                    ctx.strokeStyle = `rgba(100, 230, 255, ${alpha})`;
+                    ctx.shadowColor = `rgba(50, 200, 255, ${alpha})`;
+                }
+                
+                ctx.fillStyle = `rgba(0, 100, 255, ${0.04 * (numLayers - i)})`;
+
+                const p1 = { x: 0, y: -radius };
+                const p2 = { x: radius * Math.cos(Math.PI / 6), y: radius * Math.sin(Math.PI / 6) };
+                const p3 = { x: -radius * Math.cos(Math.PI / 6), y: radius * Math.sin(Math.PI / 6) };
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                drawGrowingKoch(p1, p2, currentLevel, fraction);
+                drawGrowingKoch(p2, p3, currentLevel, fraction);
+                drawGrowingKoch(p3, p1, currentLevel, fraction);
+                ctx.closePath();
+
+                ctx.fill(); 
+
+                const dashLength = 20 / scale;
+                ctx.setLineDash([dashLength, dashLength * 1.5]);
+                ctx.lineDashOffset = -time * 30 / scale;
+
+                ctx.stroke();
+
+                ctx.setLineDash([]); 
+                ctx.lineWidth = 0.5 / scale;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.5})`; 
+                ctx.stroke();
+
+                ctx.restore(); 
+            }
+
+            ctx.restore();
+        }
+
+        animate();
+    </script>
+</body>
+</html>
