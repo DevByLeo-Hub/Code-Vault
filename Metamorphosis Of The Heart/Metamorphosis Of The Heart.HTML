@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metamorfose Rosa e Dourada - Coração/Estrela</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000000;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="heartCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("heartCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let w = canvas.width = window.innerWidth;
+        let h = canvas.height = window.innerHeight;
+
+        let particles = [];
+        const numParticles = 1200; 
+        
+        const heartColors = ["#FF1493", "#FF007F", "#FF69B4", "#FF00FF", "#ff33cc"];
+        const starColors = ["#FFD700", "#FFEA00", "#FFC125", "#FFA500", "#FADA5E"];
+
+        let state = 0; 
+        let lastSwitchTime = Date.now();
+
+        window.addEventListener("resize", () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        function getStarPos(i, max, scale) {
+            const numPoints = 5;
+            const points = [];
+            const yOffset = scale * 0.15; 
+            
+            for(let j = 0; j < numPoints * 2; j++) {
+                const r = (j % 2 === 0) ? scale * 1.5 : scale * 0.6; 
+                const a = (j / (numPoints * 2)) * Math.PI * 2 - Math.PI / 2;
+                points.push({x: Math.cos(a) * r, y: Math.sin(a) * r + yOffset});
+            }
+            points.push(points[0]); 
+
+            const totalSegments = numPoints * 2;
+            const progress = (i / max) * totalSegments;
+            const index = Math.floor(progress);
+            const t = progress - index;
+
+            const p1 = points[index];
+            const p2 = points[index + 1];
+            
+            return {
+                x: p1.x + (p2.x - p1.x) * t,
+                y: p1.y + (p2.y - p1.y) * t
+            };
+        }
+
+        function initParticles() {
+            particles = [];
+            state = 0;
+            lastSwitchTime = Date.now();
+
+            const scaleHeart = Math.min(w, h) / 45;
+            const scaleStar = Math.min(w, h) / 4;
+
+            for (let i = 0; i < numParticles; i++) {
+                const t = (i / numParticles) * Math.PI * 2;
+                const angleOffset = Math.random() * Math.PI * 2;
+
+                const hx = 16 * Math.pow(Math.sin(t), 3);
+                const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+                const spreadHeart = Math.pow(Math.random(), 2) * 20; 
+                const heartOffsetX = (hx * scaleHeart) + Math.cos(angleOffset) * spreadHeart;
+                const heartOffsetY = (hy * scaleHeart) + Math.sin(angleOffset) * spreadHeart;
+
+                // Posições da Estrela
+                const baseStar = getStarPos(i, numParticles, scaleStar);
+                const spreadStar = Math.pow(Math.random(), 2) * 15;
+                const starOffsetX = baseStar.x + Math.cos(angleOffset) * spreadStar;
+                const starOffsetY = baseStar.y + Math.sin(angleOffset) * spreadStar;
+
+                particles.push({
+                    x: w / 2, 
+                    y: h / 2,
+                    heartOffsetX: heartOffsetX,
+                    heartOffsetY: heartOffsetY,
+                    starOffsetX: starOffsetX,
+                    starOffsetY: starOffsetY,
+                    size: Math.random() * 2 + 1.2,
+                    
+                    colorHeart: heartColors[Math.floor(Math.random() * heartColors.length)],
+                    colorStar: starColors[Math.floor(Math.random() * starColors.length)],
+                    
+                    delayOut: i * 2.5, 
+                    delayIn: (numParticles - 1 - i) * 2.5, 
+                    
+                    timer: 0
+                });
+            }
+        }
+
+        initParticles();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            ctx.globalCompositeOperation = "source-over";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+            ctx.fillRect(0, 0, w, h);
+
+            ctx.globalCompositeOperation = "lighter"; 
+
+            let now = Date.now();
+            let elapsed = now - lastSwitchTime;
+            
+            let currentDuration = (state === 0 || state === 2) ? 6000 : 4500;
+
+            if (elapsed > currentDuration) {
+                state = (state + 1) % 4; 
+                lastSwitchTime = now;
+                particles.forEach(p => p.timer = 0); 
+            }
+
+            particles.forEach(p => {
+                p.timer += 16; 
+                
+                let isDrawing = (state === 0 || state === 2);
+                let delay = isDrawing ? p.delayOut : p.delayIn; 
+                
+                let shapeX = w / 2 + (state <= 1 ? p.heartOffsetX : p.starOffsetX);
+                let shapeY = h / 2 + (state <= 1 ? p.heartOffsetY : p.starOffsetY);
+                
+                let centerX = w / 2;
+                let centerY = h / 2;
+                
+                let isVisible = false;
+
+                if (isDrawing) {
+                    if (p.timer >= delay) {
+                        p.x += (shapeX - p.x) * 0.08;
+                        p.y += (shapeY - p.y) * 0.08;
+                        isVisible = true;
+
+                        if (Math.abs(shapeX - p.x) < 1 && Math.abs(shapeY - p.y) < 1) {
+                            p.x += (Math.random() - 0.5) * 0.8;
+                            p.y += (Math.random() - 0.5) * 0.8;
+                        }
+                    } else {
+                        p.x = centerX;
+                        p.y = centerY;
+                    }
+                } else {
+                    if (p.timer >= delay) {
+                        p.x += (centerX - p.x) * 0.08;
+                        p.y += (centerY - p.y) * 0.08;
+                        
+                        if (Math.abs(centerX - p.x) > 2 || Math.abs(centerY - p.y) > 2) {
+                            isVisible = true;
+                        }
+                    } else {
+                        p.x = shapeX;
+                        p.y = shapeY;
+                        p.x += (Math.random() - 0.5) * 0.8;
+                        p.y += (Math.random() - 0.5) * 0.8;
+                        isVisible = true;
+                    }
+                }
+
+                if (isVisible) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    
+                    ctx.fillStyle = (state <= 1) ? p.colorHeart : p.colorStar;
+                    
+                    ctx.fill();
+                }
+            });
+        }
+
+        animate();
+    </script>
+</body>
+</html>
