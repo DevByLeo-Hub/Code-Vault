@@ -2,7 +2,7 @@
 
 Bem-vindo ao código do projeto da Esfera Cósmica 3D! 🪐 Este é um projeto fascinante de Codificação Criativa (Creative Coding) focado na renderização avançada de milhares de partículas simultâneas utilizando o poder do WebGL.
 
-![Preview do Projeto](exemplo.jpg)
+![Preview do Projeto](exemplo.png)
 
 ## 🚀 Sobre o Projeto
 
