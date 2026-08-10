@@ -2,7 +2,7 @@
 
 Bem-vindo ao código do projeto Caça-Níquel Python! 🎰 Este é um projeto de simulação interativa focado em recriar a clássica experiência de um cassino diretamente no terminal de comandos, utilizando arte em emojis.
 
-![Preview do Projeto](Cassino.png)
+![Preview do Projeto](Casino.png)
 
 ## 🚀 Sobre o Projeto
 
