@@ -2,7 +2,7 @@
 
 Bem-vindo ao código do projeto Cartão Interativo! 🌹 Este é um projeto de Codificação Criativa focado em criar uma experiência visual relaxante e romântica, ideal para homenagens ou presentes digitais.
 
-![Preview do Projeto](pink.png)
+![Preview do Projeto](Pink.png)
 
 ## 🚀 Sobre o Projeto
 
