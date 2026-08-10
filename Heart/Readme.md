@@ -2,7 +2,7 @@
 
 Bem-vindo ao código do projeto Coração Pulsante! ❤️ Este é um projeto de Codificação Criativa utilizando Python puro para gerar arte matemática animada, simulando um batimento cardíaco através de geometria paramétrica.
 
-![Preview do Projeto](coração.png)
+![Preview do Projeto](Coração.png)
 
 ## 🚀 Sobre o Projeto
 
