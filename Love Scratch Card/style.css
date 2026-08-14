@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Fredoka', sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="font-size:24px"><text y="24">❤️</text></svg>') 15 15, auto;
+    overflow-x: hidden;
+}
+
+.cartela {
+    background: #ffd1dc;
+    width: 100%;
+    max-width: 550px;
+    padding: 30px;
+    border-radius: 15px;
+    border: 4px dotted #fb7185;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(251, 113, 133, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.cabecalho {
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: #e11d48;
+    font-size: 34px;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+p {
+    color: #9f1239;
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.grid-raspadinhas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+@media (max-width: 500px) {
+    .grid-raspadinhas {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+.raspadinha-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #fff0f2;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 187.5l-14.5-13.2C35.5 133.6 0 101.3 0 61.5 0 30.7 24.2 6.5 55 6.5c17.4 0 34.1 8.1 45 20.9 10.9-12.8 27.6-20.9 45-20.9 30.8 0 55 24.2 55 55 0 39.8-35.5 72.1-85.5 112.8L100 187.5z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 187.5l-14.5-13.2C35.5 133.6 0 101.3 0 61.5 0 30.7 24.2 6.5 55 6.5c17.4 0 34.1 8.1 45 20.9 10.9-12.8 27.6-20.9 45-20.9 30.8 0 55 24.2 55 55 0 39.8-35.5 72.1-85.5 112.8L100 187.5z' fill='black'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+.premio-conteudo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #e11d48;
+    padding: 0 5px 15px 5px;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #fff0f2;
+    line-height: 1.1;
+}
+
+.premio-conteudo img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-bottom: 4px;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="font-size:24px"><text y="24">❤️</text></svg>') 15 15, pointer;
+    touch-action: none;
+    transition: opacity 0.5s ease;
+}
+
+#resultado-box {
+    margin-top: 25px;
+}
+
+#mensagem-resultado {
+    color: #e11d48;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+#btn-sortear {
+    background: #fb7185;
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#btn-sortear:hover {
+    background: #e11d48;
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.confete {
+    position: fixed;
+    top: -10vh;
+    z-index: 9999;
+    user-select: none;
+    pointer-events: none;
+    animation: confettiFall linear infinite;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% { 
+        transform: translateY(110vh) rotate(720deg); 
+    }
+}
