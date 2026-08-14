@@ -11,7 +11,7 @@ Esse é o código do cartão virtual interativo que bateu milhares de visualiza�
 
 ## ✨ Demonstração
 
-![Demonstração do Pedido](pedido.png)
+![Demonstração do Pedido](Pedido.png)
 
 ---
 
