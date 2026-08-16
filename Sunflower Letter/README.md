@@ -2,7 +2,8 @@
 
 Bem-vindo ao código do meu projeto da Carta de Girassol! 🌻 Este é um projeto de Codificação Criativa focado em criar uma experiência visual relaxante e romântica, ideal para homenagens ou presentes digitais.
 
-![Preview do Projeto](Girassol.png)
+![Preview do Pr<img width="1836" height="4080" alt="1000141211" src="https://github.com/user-attachments/assets/3094b2b7-13f3-49b3-a4c1-148a1b0df7e0" />
+ojeto](Girassol.png)
 
 ## 🚀 Sobre o Projeto
 
@@ -29,7 +30,7 @@ Um projeto interativo construído do zero, combinando manipulação de elementos
 * `style.css` - Contém todas as regras de estilo e animações dos balões e textos.
 * `script.js` - O motor por trás do céu estrelado e dos fogos de artifício.
 * `GIRASSOL.png` - A imagem do buquê utilizada no projeto.
-* `Girassol.png` - Imagem de demonstração do README.
+* `Girassol.png` - Imagem de demonstração do REAqDME.
 
 ## 🚀 Como Executar
 
